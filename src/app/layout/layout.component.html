@@ -1,0 +1,40 @@
+<div class="container w-100 mw-100 h-100">
+    <div class="row px-0 h-100">
+        <div class="col-12 px-0">
+            <mat-sidenav-container class="example-container h-100">
+                <mat-sidenav #sidenav mode="side" [(opened)]="opened" (opened)="events.push('open!')" (closed)="events.push('close!')" class="sidenav">
+                    <div class="container w-100 mw-100 h-100">
+                        <div class="row logo" style="height: 8%;">
+                            <div class="col my-auto">
+                                <h2>Login Angular</h2>
+                            </div>
+                        </div>
+                        <div class="row" style="height: 92%;">
+                            <div class="col pr-0" style="background: linear-gradient(to right, #010039, #608DDD);">
+                                <!-- <app-menus></app-menus> -->
+                            </div>
+                            <div class="col-12 footer text-white text-center">
+                                <footer style="font-size: 12px;">
+                                    Jorge Herra 2021© Todos los derechos reservados
+                                </footer>
+                            </div>
+                        </div>
+                    </div>
+                </mat-sidenav>
+              
+                <mat-sidenav-content class="content-dash">
+                    <mat-toolbar style="height: 8%;">
+                        <mat-toolbar-row> 
+                            <span class="spacer"></span>
+                            <button title="Salir" (click)="salir()" class="btn btn-danger">
+                                <i class="fas fa-power-off"></i>
+                            </button>
+                        </mat-toolbar-row>
+                    </mat-toolbar>
+                    <button mat-button class="btn menu" (click)="sidenav.toggle()"><i class="fas fa-bars text-white"></i></button>
+                    <router-outlet></router-outlet>
+                </mat-sidenav-content>
+            </mat-sidenav-container>
+        </div>
+    </div>
+</div>

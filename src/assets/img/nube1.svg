@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="666.372" height="744.134" viewBox="0 0 666.372 744.134">
+  <defs>
+    <linearGradient id="linear-gradient" x1="0.217" y1="0.983" x2="0.841" y2="0.476" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#038443"/>
+      <stop offset="0.632" stop-color="#038443"/>
+      <stop offset="0.795" stop-color="#ff0"/>
+      <stop offset="0.914" stop-color="#fff"/>
+      <stop offset="1" stop-color="#fff"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-2" x1="0.233" y1="1" x2="0.824" y2="0.112" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#038443"/>
+      <stop offset="0.318" stop-color="#9cdf00"/>
+      <stop offset="0.602" stop-color="#ff0"/>
+      <stop offset="0.841" stop-color="#eff6fb"/>
+      <stop offset="1" stop-color="#fff"/>
+    </linearGradient>
+  </defs>
+  <g id="Grupo_1" data-name="Grupo 1" transform="translate(-39.5 -232)">
+    <path id="Trazado_4" data-name="Trazado 4" d="M740.963,818.622H75.919V76.856c30.83-8.274,60.753,11.04,71.419,55.859,9.939,41.754,9.447,92.706,40.236,115.166,21.5,15.684,46.1,6.154,68.652,2.482A84.344,84.344,0,0,1,327.8,272.112c25.311,23.391,34.078,60.874,44.579,100.013,13.74,51.206,36.54,91.7,74.858,100.944,44.488,10.734,105.91-1.981,143.028,43.563,30.847,37.849,21.915,107.443,46.8,151.478C670.454,727.178,750.8,696.064,740.963,818.622Z" transform="translate(-35.919 157.012)" fill="url(#linear-gradient)"/>
+    <path id="Trazado_5" data-name="Trazado 5" d="M712.015,818.622H75.919V99.763c29.376-8.02,60.307,10.7,70.47,54.132,9.469,40.465,9,89.845,38.338,111.611,20.482,15.2,43.928,5.964,65.413,2.407,22.941-3.8,48.062,2.147,68.2,21.076,24.117,22.667,32.47,58.994,42.477,96.926,13.091,49.623,34.816,88.865,71.327,97.825,42.388,10.4,100.915-1.918,136.282,42.219,29.392,36.68,20.881,104.123,44.594,146.8C644.83,730,721.391,699.85,712.015,818.622Z" transform="translate(-35.919 157.012)" stroke="rgba(112,112,112,0.14)" stroke-width="1" fill="url(#linear-gradient-2)"/>
+  </g>
+</svg>

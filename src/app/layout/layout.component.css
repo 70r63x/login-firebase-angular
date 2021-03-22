@@ -1,0 +1,24 @@
+.sidenav{
+    width: 15%;
+}
+
+.logo{
+    background: #C8C8C8;
+}
+  
+.spacer {
+    flex: 1 1 auto;
+}
+
+.menu{
+    border-radius: 0 5px 5px 0;
+    background: #038443;
+    position: absolute;
+    top: 5.5%;
+}
+
+.footer{
+    position: fixed;
+    bottom: 5px;
+    width: 15%;
+}

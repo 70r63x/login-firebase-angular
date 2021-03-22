@@ -1,0 +1,36 @@
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-6 col-lg-3 absolute form">
+            <form (ngSubmit)="login(loginForm)" #loginForm='ngForm' class="fadeInLeft animated border border-light px-5 py-3 rounded formlogin">
+                <div class="col-12 text-center">
+                    <h2>Bienvenido</h2>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-12 p-md-0">
+                        <mat-form-field appearance="outline" class="w-100 px-0 px-md-1">
+                            <mat-label>Usuario</mat-label>
+                            <input matInput type="email" placeholder="Email" pattern="[A-zÀ-ú ]*" name="email" required [(ngModel)]="loginform.email" #email pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,3}$"> 
+                            <mat-icon matPrefix>person</mat-icon>
+                            <mat-error class="text-danger text-center d-none d-md-block" *ngIf="!email.valid">Campo requerido o invalido</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-12 p-md-0">
+                        <mat-form-field appearance="outline" class="w-100 px-0 px-md-1">
+                            <mat-label>Contraseña</mat-label>
+                            <input matInput type="password" placeholder="Contraseña" name="password" required [(ngModel)]="loginform.password" #password min="8" minlength="8">
+                            <mat-icon matPrefix>vpn_key</mat-icon>
+                            <mat-error class="text-danger text-center d-none d-md-block" *ngIf="password.value.length < 8">La contraseña debe ser mínimo de 8 caracteres</mat-error>
+                            <mat-error class="text-danger text-center d-none d-md-block" *ngIf="!password.valid && password.value.length > 8">Campo requerido o invalido</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-12 text-right">
+                        <a routerLink="/registro">¿No tienes cuenta?</a>
+                    </div>
+                    <div class="col-12 text-center mt-2">
+                        <button class="btn btn-primary" type="submit">Ingresar</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
