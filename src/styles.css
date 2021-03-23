@@ -75,3 +75,7 @@ a{
 .absolute{
     position: absolute;
 }
+
+.iconAlert{
+    font-size: 50px;
+}

@@ -16,6 +16,7 @@ export class LayoutComponent implements OnInit, OnDestroy {
   public idle = 600;
   events: string[] = [];
   opened: boolean = true;
+  timer: any;
 
   constructor(private userIdle: UserIdleService, private auth: AuthService, private router: Router, public dialog: MatDialog) {
     this.userIdle.setConfigValues({
@@ -29,6 +30,7 @@ export class LayoutComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.refrescarToken();
     this.userIdle.startWatching();
 
     this.userIdle.onTimerStart().subscribe(resp => {
@@ -45,15 +47,28 @@ export class LayoutComponent implements OnInit, OnDestroy {
   ngOnDestroy(){
     this.userIdle.stopWatching();
     this.userIdle.stopTimer();
+    clearTimeout(this.timer);
   }
 
   salir(){
     this.auth.logout();
+    this.dialog.closeAll();
     this.router.navigateByUrl('/login');
   }
 
   openAlert(){
     this.dialog.open(AlertaComponent, {data: { icon: 'fas fa-info-circle', titulo: 'Sesión Cerrada', texto: 'La sesión fue cerrada por inactividad en el sistema'}, id: 'mat-dialog-1'});
+  }
+
+  refrescarToken() {
+    var that = this;
+    this.timer = setTimeout(function () {
+      if(!that.auth.isAuthenticated()){
+        that.auth.refreshToken().subscribe( (data: any) => {
+        });
+      }
+      that.refrescarToken();
+    }, 1000); //1 min
   }
 
 }

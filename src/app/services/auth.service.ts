@@ -18,6 +18,7 @@ export class AuthService {
 
   logout(){
     localStorage.removeItem('token');
+    localStorage.removeItem('refreshToken');
   }
 
   login(usuario: LoginModel){
@@ -28,19 +29,9 @@ export class AuthService {
 
     return this.http.post(`${environment.server}signInWithPassword?key=${environment.apiKey}`, authData
     ).pipe(map( resp => {
-      this.saveToken(resp['idToken']);
+      this.saveToken(resp['idToken'], resp['refreshToken'], resp['expiresIn']);
       return resp;
     }));
-  }
-
-  private saveToken(idToken:  string){
-    this.userToken = idToken;
-    localStorage.setItem('token', idToken);
-
-    let date = new Date();
-    date.setSeconds(3600);
-
-    localStorage.setItem('tokenExpire', date.getTime().toString())
   }
 
   readToken(){
@@ -49,6 +40,18 @@ export class AuthService {
     }else{
       this.userToken = '';
     }
+  }
+
+  refreshToken(){
+    const authData = {
+      grant_type: 'refresh_token',
+      refresh_token: localStorage.getItem('refreshToken')
+    };
+    return this.http.post(`${environment.serverToken}token?key=${environment.apiKey}`, authData
+    ).pipe(map( resp => {
+      this.saveToken(resp['id_token'], resp['refresh_token'], resp['expires_in']);
+      return resp;
+    }));
   }
 
   isAuthenticated(): boolean{
@@ -76,8 +79,19 @@ export class AuthService {
 
     return this.http.post(`${environment.server}signUp?key=${environment.apiKey}`, authData
     ).pipe(map( resp => {
-      this.saveToken(resp['idToken']);
+      this.saveToken(resp['idToken'], resp['refreshToken'], resp['expiresIn']);
       return resp;
     }));
+  }
+
+  private saveToken(idToken: string, refreshIdToken: string, expireToken: string){
+    this.userToken = idToken;
+    localStorage.setItem('token', idToken);
+    localStorage.setItem('refreshToken', refreshIdToken);
+
+    let date = new Date();
+    date.setSeconds(parseInt(expireToken)-100);
+
+    localStorage.setItem('tokenExpire', date.getTime().toString())
   }
 }
