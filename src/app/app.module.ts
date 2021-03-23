@@ -1,9 +1,15 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
 import { AppRoutingModule } from './app-routing.module';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { environment } from '../environments/environment';
+
+import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { EffectsModule } from '@ngrx/effects';
+import { EffectsArray } from './store/effects';
+import { appReducers } from './store/app.reducers';
 
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
@@ -34,7 +40,6 @@ import { AlertaComponent } from './sections/alerta/alerta.component';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    ReactiveFormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
     MatFormFieldModule,
@@ -42,12 +47,17 @@ import { AlertaComponent } from './sections/alerta/alerta.component';
     MatIconModule,
     MatSidenavModule,
     UserIdleModule.forRoot({idle: 600, timeout: 1}),
+    StoreModule.forRoot( appReducers ),
+    EffectsModule.forRoot( EffectsArray ),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25, // Retains last 25 states
+      logOnly: environment.production, // Restrict extension to log-only mode
+    }),
     MatDialogModule,
     MatToolbarModule
   ],
   exports: [
     FormsModule,
-    ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,
     MatIconModule,

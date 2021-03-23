@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   server: 'https://identitytoolkit.googleapis.com/v1/accounts:',
-  apiKey: '' //aqui val la apikey de la app de firebase
+  apiKey: 'AIzaSyANFZX9NqNZmuYLcfA5dhioVqTl4Z1f2Os' //aqui val la apikey de la app de firebase
 };
 
 /*

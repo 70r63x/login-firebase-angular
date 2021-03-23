@@ -27,7 +27,14 @@
                         <a routerLink="/registro">¿No tienes cuenta?</a>
                     </div>
                     <div class="col-12 text-center mt-2">
-                        <button class="btn btn-primary" type="submit">Ingresar</button>
+                        <button class="btn btn-primary" type="submit" [disabled]="cargando">
+                            <span *ngIf="cargando; else noLoad">
+                                <i class="fas fa-spinner fa-pulse text-white" style="font-size: 20px;"></i>
+                            </span>
+                            <ng-template #noLoad>
+                                Ingresar
+                            </ng-template>
+                        </button>
                     </div>
                 </div>
             </form>
