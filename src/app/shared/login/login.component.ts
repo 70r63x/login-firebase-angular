@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../store/app.reducers';
 import { Subscription } from 'rxjs';
-import { isLoading, stopLoading } from '../../store/actions';
+import { isLoading } from '../../store/actions';
 
 @Component({
   selector: 'app-login',
@@ -23,9 +23,14 @@ export class LoginComponent implements OnInit, OnDestroy {
   constructor(private auth: AuthService, private router: Router, private store: Store<AppState>) {
     this.loginform = new LoginModel();
   }
-
+  // ui => this.cargando = ui.isLoading
   ngOnInit(): void {
-    this.uiSubscriptions = this.store.select('loginState').subscribe(ui => this.cargando = ui.isLoading);
+    this.uiSubscriptions = this.store.select('dataLogin').subscribe(({data, isLoading}) =>{
+      this.cargando = isLoading;
+      if(data !== null){
+        this.router.navigateByUrl('/dashboard');
+      }
+    });
   }
 
   ngOnDestroy(){
@@ -36,18 +41,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     if(!form.valid){
       console.log("invalido");
     }else{
-      //activar loading
-      this.store.dispatch(isLoading());
-      this.auth.login(this.loginform).subscribe( resp => {
-        console.log(resp);
-        this.store.dispatch(stopLoading());
-        this.router.navigateByUrl('/dashboard');
-        //cancelar loading
-      }, (err) => {
-        this.store.dispatch(stopLoading());
-        console.log(err.error.error.message);
-        //mostrar error
-      });
+      this.store.dispatch(isLoading({usuario: this.loginform}));
     }
   }
 

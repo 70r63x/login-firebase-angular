@@ -3,11 +3,11 @@ import * as reducers from './reducers';
 
 
 export interface AppState {
-    loginState: reducers.LoginState,
+    dataLogin: reducers.LoginState,
 }
 
 
 
 export const appReducers: ActionReducerMap<AppState> = {
-    loginState: reducers.uiReducer,
+    dataLogin: reducers.uiReducer,
 }

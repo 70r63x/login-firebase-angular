@@ -4,6 +4,10 @@ import { AuthService } from '../services/auth.service';
 import { UserIdleService } from 'angular-user-idle';
 import { MatDialog } from '@angular/material/dialog';
 
+import { Store } from '@ngrx/store';
+import { AppState } from '../store/app.reducers';
+import { unSetLogin } from '../store/actions';
+
 import { AlertaComponent } from '../sections/alerta/alerta.component';
 
 @Component({
@@ -18,7 +22,12 @@ export class LayoutComponent implements OnInit, OnDestroy {
   opened: boolean = true;
   timer: any;
 
-  constructor(private userIdle: UserIdleService, private auth: AuthService, private router: Router, public dialog: MatDialog) {
+  constructor(
+    private userIdle: UserIdleService,
+    private auth: AuthService,
+    private router: Router,
+    public dialog: MatDialog,
+    private store: Store<AppState>) {
     this.userIdle.setConfigValues({
       idle: this.idle
     });
@@ -53,6 +62,8 @@ export class LayoutComponent implements OnInit, OnDestroy {
   salir(){
     this.auth.logout();
     this.dialog.closeAll();
+    console.log("salir");
+    this.store.dispatch(unSetLogin());
     this.router.navigateByUrl('/login');
   }
 
