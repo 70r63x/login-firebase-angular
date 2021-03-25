@@ -7,7 +7,6 @@ export interface AppState {
 }
 
 
-
 export const appReducers: ActionReducerMap<AppState> = {
     dataLogin: reducers.uiReducer,
 }
