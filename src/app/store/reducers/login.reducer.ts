@@ -14,17 +14,17 @@ export const initialStateLogin: LoginState = {
    error: null
 }
 
-const _uiReducer = createReducer(initialStateLogin,
+const _loginReducer = createReducer(initialStateLogin,
 
-    on(actions.isLoading, state => ({ ...state, isLoading: true})),
+    on(actions.isLoadingLogin, state => ({ ...state, isLoading: true})),
 
-    on(actions.stopLoading, (state, {datos}) => ({ 
+    on(actions.stopLoadingLogin, (state, {datos}) => ({ 
         ...state,
         isLoading: false,
         data: {...datos}
     })),
 
-    on(actions.loadingError, (state, {payload}) => ({
+    on(actions.loadingErrorLogin, (state, {payload}) => ({
         ...state,
         isLoading: false,
         error: {
@@ -38,6 +38,6 @@ const _uiReducer = createReducer(initialStateLogin,
 
 );
 
-export function uiReducer(state, action) {
-    return _uiReducer(state, action);
+export function loginReducer(state, action) {
+    return _loginReducer(state, action);
 }

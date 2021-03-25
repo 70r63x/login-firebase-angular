@@ -92,6 +92,6 @@ export class AuthService {
     let date = new Date();
     date.setSeconds(parseInt(expireToken)-100);
 
-    localStorage.setItem('tokenExpire', date.getTime().toString())
+    localStorage.setItem('tokenExpire', date.getTime().toString());
   }
 }

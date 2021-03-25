@@ -1,26 +1,26 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import * as loginActions from '../actions/login.actions';
+import * as registroActions from '../actions/registro.actions';
 import { mergeMap, map, catchError } from 'rxjs/operators';
 import { AuthService } from '../../services/auth.service';
 import { of } from 'rxjs';
 
 @Injectable()
-export class LoginEffects {
+export class RegistroEffects {
     
     constructor(
         private actions$: Actions,
         private _service: AuthService
     ){}
 
-    CargaLoginDatos$ = createEffect(
+    CargaRegistroDatos$ = createEffect(
         () => this.actions$.pipe(
-            ofType( loginActions.isLoadingLogin ),
+            ofType( registroActions.isLoadingRegistro ),
             mergeMap(
-                (datosUser) => this._service.login(datosUser.usuario)
+                (datosUser) => this._service.registrar(datosUser.usuario)
                     .pipe(
-                        map( data => loginActions.stopLoadingLogin({ datos: data }) ),
-                        catchError( err => of(loginActions.loadingErrorLogin({ payload: err })) )
+                        map( data => registroActions.stopLoadingRegistro({ datos: data }) ),
+                        catchError( err => of(registroActions.loadingErrorRegistro({ payload: err })) )
                     )
             )
         )

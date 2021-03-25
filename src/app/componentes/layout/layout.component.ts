@@ -1,14 +1,15 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from '../services/auth.service';
+import { AuthService } from '../../services/auth.service';
 import { UserIdleService } from 'angular-user-idle';
 import { MatDialog } from '@angular/material/dialog';
 
 import { Store } from '@ngrx/store';
-import { AppState } from '../store/app.reducers';
-import { unSetLogin } from '../store/actions';
+import { AppState } from '../../store/app.reducers';
+import { unSetLogin, unSetRegistro } from '../../store/actions';
 
-import { AlertaComponent } from '../sections/alerta/alerta.component';
+import { AlertaComponent } from '../../componentes/sections/alerta/alerta.component';
+import { Subscriber, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-layout',
@@ -21,6 +22,7 @@ export class LayoutComponent implements OnInit, OnDestroy {
   events: string[] = [];
   opened: boolean = true;
   timer: any;
+  private pingExpire: Subscription;
 
   constructor(
     private userIdle: UserIdleService,
@@ -29,18 +31,23 @@ export class LayoutComponent implements OnInit, OnDestroy {
     public dialog: MatDialog,
     private store: Store<AppState>) {
     this.userIdle.setConfigValues({
-      idle: this.idle
+      idle: this.idle,
+      ping: 60
     });
 
     const expire = Number(localStorage.getItem('tokenExpire'));
     const date = new Date();
-    date.setTime(expire)
+    date.setTime(expire);
     console.log(date, "hora de expirar token");
   }
 
   ngOnInit(): void {
-    this.refrescarToken();
     this.userIdle.startWatching();
+    this.pingExpire = this.userIdle.ping$.subscribe(()=> {
+      if(!this.auth.isAuthenticated()){
+        this.auth.refreshToken().subscribe();
+      }
+    });
 
     this.userIdle.onTimerStart().subscribe(resp => {
       if(resp){
@@ -56,6 +63,7 @@ export class LayoutComponent implements OnInit, OnDestroy {
   ngOnDestroy(){
     this.userIdle.stopWatching();
     this.userIdle.stopTimer();
+    this.pingExpire.unsubscribe();
     clearTimeout(this.timer);
   }
 
@@ -64,22 +72,12 @@ export class LayoutComponent implements OnInit, OnDestroy {
     this.dialog.closeAll();
     console.log("salir");
     this.store.dispatch(unSetLogin());
+    this.store.dispatch(unSetRegistro());
     this.router.navigateByUrl('/login');
   }
 
   openAlert(){
     this.dialog.open(AlertaComponent, {data: { icon: 'fas fa-info-circle', titulo: 'Sesión Cerrada', texto: 'La sesión fue cerrada por inactividad en el sistema'}, id: 'mat-dialog-1'});
-  }
-
-  refrescarToken() {
-    var that = this;
-    this.timer = setTimeout(function () {
-      if(!that.auth.isAuthenticated()){
-        that.auth.refreshToken().subscribe( (data: any) => {
-        });
-      }
-      that.refrescarToken();
-    }, 1000); //1 min
   }
 
 }

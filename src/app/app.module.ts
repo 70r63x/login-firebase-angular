@@ -20,12 +20,12 @@ import {MatDialogModule} from '@angular/material/dialog';
 import {MatToolbarModule} from '@angular/material/toolbar';
 
 import { AppComponent } from './app.component';
-import { HomeComponent } from './pages/home/home.component';
+import { HomeComponent } from './componentes/pages/home/home.component';
 import { LoginComponent } from './shared/login/login.component';
 import { RegistroComponent } from './shared/registro/registro.component';
-import { LayoutComponent } from './layout/layout.component';
+import { LayoutComponent } from './componentes/layout/layout.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { AlertaComponent } from './sections/alerta/alerta.component';
+import { AlertaComponent } from './componentes/sections/alerta/alerta.component';
 
 @NgModule({
   declarations: [
